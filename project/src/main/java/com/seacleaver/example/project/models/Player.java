@@ -80,4 +80,6 @@ public abstract class Player {
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
+
+    // What else can I add?
 }

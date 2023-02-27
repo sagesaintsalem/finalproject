@@ -13,6 +13,6 @@ public class NPCs extends Player{
 
     public NPCs() {
     }
-
+    // What else can I add?
 
 }

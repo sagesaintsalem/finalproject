@@ -45,4 +45,5 @@ public class Stats {
     public void setLuck(int luck) {
         this.luck = luck;
     }
+    // What else can I add?
 }
