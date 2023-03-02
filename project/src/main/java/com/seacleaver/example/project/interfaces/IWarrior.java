@@ -1,5 +1,6 @@
 package com.seacleaver.example.project.interfaces;
 
-public interface IMage {
+public interface IWarrior {
 
+    int trueStrike();
 }

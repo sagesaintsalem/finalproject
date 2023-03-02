@@ -1,6 +1,14 @@
 package com.seacleaver.example.project.models;
 
+
+
+import com.seacleaver.example.project.enums.DoA;
+import com.seacleaver.example.project.enums.PlayerClasses;
+import com.seacleaver.example.project.repositories.PlayerRepository;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+
 
 
 @MappedSuperclass
@@ -16,21 +24,29 @@ public abstract class Player {
     @Column(name = "armour")
     private int armour;
     @Column(name = "attk_points")
-    private int attackPoints;
+    int attackPoints;
     @Column(name = "mag_points")
-    private int magicPoints;
+    int magicPoints;
     @Column(name = "hp")
     private int healthPoints;
 
-    public Player(String name, int armour, int attackPoints, int magicPoints, int healthPoints) {
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private DoA status;
+
+    public Player(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status) {
         this.name = name;
         this.armour = armour;
         this.attackPoints = attackPoints;
         this.magicPoints = magicPoints;
         this.healthPoints = healthPoints;
+        this.status = status;
+
+
     }
 
-    public Player(){}
+    public Player() {
+    }
 
     public Long getId() {
         return id;
@@ -81,5 +97,43 @@ public abstract class Player {
         this.healthPoints = healthPoints;
     }
 
-    // What else can I add?
+    public DoA getStatus() {
+        return status;
+    }
+
+    public void setStatus(DoA status) {
+        this.status = status;
+    }
+
+    public void attack(Player player) {
+        int enemyHP = player.getHealthPoints();
+        int attk = this.attackPoints;
+        player.setHealthPoints((enemyHP - attk));
+    }
+
+    public void heal() {
+        int HP = this.healthPoints;
+        int magic = this.magicPoints;
+        this.setHealthPoints(HP + magic);
+    }
+
+    public void castThunderbolt(Player enemy) {
+        int enemyHP = enemy.getHealthPoints();
+        int attk = this.magicPoints * 2;
+        int damage = enemyHP - attk;
+        enemy.setHealthPoints(damage);
+        if (enemy.getHealthPoints() <= 0) {
+            enemy.setStatus(DoA.DEAD);
+        }
+    }
+
+    public void trueStrike(Player enemy) {
+        int enemyHP = enemy.getHealthPoints();
+        int attk = this.attackPoints * 2;
+        enemy.setHealthPoints(enemyHP - attk);
+        if (enemy.getHealthPoints() <= 0) {
+            enemy.setStatus(DoA.DEAD);
+        }
+    }
 }
+
