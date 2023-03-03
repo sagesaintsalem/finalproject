@@ -84,7 +84,8 @@ public class Ship {
         this.status = status;
     }
 
-    public void addToCoffers(int money){
+    public void addToCoffers(Raid raid){
+        int money = raid.getLoot();
         this.setCoffers(this.coffers + money);
     }
 

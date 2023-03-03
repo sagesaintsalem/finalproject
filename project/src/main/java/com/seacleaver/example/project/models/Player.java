@@ -117,23 +117,6 @@ public abstract class Player {
         this.setHealthPoints(HP + magic);
     }
 
-    public void castThunderbolt(Player enemy) {
-        int enemyHP = enemy.getHealthPoints();
-        int attk = this.magicPoints * 2;
-        int damage = enemyHP - attk;
-        enemy.setHealthPoints(damage);
-        if (enemy.getHealthPoints() <= 0) {
-            enemy.setStatus(DoA.DEAD);
-        }
-    }
 
-    public void trueStrike(Player enemy) {
-        int enemyHP = enemy.getHealthPoints();
-        int attk = this.attackPoints * 2;
-        enemy.setHealthPoints(enemyHP - attk);
-        if (enemy.getHealthPoints() <= 0) {
-            enemy.setStatus(DoA.DEAD);
-        }
-    }
 }
 

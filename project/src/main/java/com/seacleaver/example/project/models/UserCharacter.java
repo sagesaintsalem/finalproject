@@ -20,13 +20,16 @@ public class UserCharacter extends Player {
     @Enumerated(value = EnumType.STRING)
     private PlayerClasses playerClass;
 
-    public UserCharacter(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status, int str, int mag, int con, int luck, PlayerClasses playerClass) {
+    private String weapon;
+
+    public UserCharacter(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status, int str, int mag, int con, int luck, PlayerClasses playerClass, String weapon) {
         super(name, armour, attackPoints, magicPoints, healthPoints, status);
         this.str = str;
         this.mag = mag;
         this.con = con;
         this.luck = luck;
         this.playerClass = playerClass;
+        this.weapon = weapon;
     }
 
     public UserCharacter() {
@@ -77,6 +80,14 @@ public class UserCharacter extends Player {
         this.playerClass = playerClass;
     }
 
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
     public void rollStats(){
         Random random = new Random();
         int str = random.nextInt((18 - 5)) + 5;
@@ -110,6 +121,14 @@ public class UserCharacter extends Player {
         return this.playerClass;
     }
 
+    public void starterWeapon(){
+        if(this.playerClass == PlayerClasses.MAGE){
+            this.setWeapon("staff");
+        } else if (this.playerClass == PlayerClasses.WARRIOR){
+            this.setWeapon("cutlass");
+        }
+    }
+
     public void buildCharacter(){
         this.rollStats();
         this.determineAttkAndMagic();
@@ -117,12 +136,15 @@ public class UserCharacter extends Player {
         this.setUserHealthPoints(con, luck);
         this.determineClass(mag, str);
         this.setStatus(DoA.ALIVE);
+        this.starterWeapon();
     }
 
 //    public void determineSpecialMove(){
 //        if (this.playerClass == PlayerClasses.MAGE){
 //
 //        }
+
+
 
     public void restartCharacter(){
         this.setMagicPoints(0);
@@ -136,6 +158,37 @@ public class UserCharacter extends Player {
         this.setHealthPoints(0);
     }
 
+    public void withGunblade(){
+        int attk = this.getAttackPoints();
+        int magic = this.getMagicPoints();
+        if(this.weapon == "gunblade"){
+            this.setAttackPoints(attk+5);
+            this.setMagicPoints(magic+5);
+        }
+    }
+
+    public void castThunderbolt(Enemy enemy) {
+        if(this.playerClass == PlayerClasses.MAGE) {
+            int enemyHP = enemy.getHealthPoints();
+            int attk = this.magicPoints * 2;
+            int damage = enemyHP - attk;
+            enemy.setHealthPoints(damage);
+            if (enemy.getHealthPoints() <= 0) {
+                enemy.setStatus(DoA.DEAD);
+            }
+        }
+    }
+
+    public void trueStrike(Enemy enemy) {
+        if(this.playerClass == PlayerClasses.WARRIOR) {
+            int enemyHP = enemy.getHealthPoints();
+            int attk = this.attackPoints * 2;
+            enemy.setHealthPoints(enemyHP - attk);
+            if (enemy.getHealthPoints() <= 0) {
+                enemy.setStatus(DoA.DEAD);
+            }
+        }
+    }
 
     }
 
