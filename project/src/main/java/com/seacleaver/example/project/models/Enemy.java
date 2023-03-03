@@ -3,8 +3,10 @@ package com.seacleaver.example.project.models;
 import com.seacleaver.example.project.enums.DoA;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "enemies")
 public class Enemy extends Player{
     public Enemy(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status) {
         super(name, armour, attackPoints, magicPoints, healthPoints, status);

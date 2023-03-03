@@ -5,10 +5,7 @@ import com.seacleaver.example.project.enums.DoA;
 import com.seacleaver.example.project.enums.PlayerClasses;
 import com.seacleaver.example.project.enums.ShipStatus;
 import com.seacleaver.example.project.models.*;
-import com.seacleaver.example.project.repositories.BossRepository;
-import com.seacleaver.example.project.repositories.PlayerRepository;
-import com.seacleaver.example.project.repositories.RaidRepository;
-import com.seacleaver.example.project.repositories.ShipRepository;
+import com.seacleaver.example.project.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,15 @@ class ProjectApplicationTests {
 	@Autowired
 	BossRepository bossRepository;
 
+	@Autowired
+	NPCRepository npcRepository;
+
+	@Autowired
+	UserCharRepository userCharRepository;
+
+	@Autowired
+	EnemyRepository enemyRepository;
+
 
 
 	@Test
@@ -42,13 +48,13 @@ class ProjectApplicationTests {
 	@Test
 	public void createCharacter(){
 		NPCs barnacles = new NPCs("Barnaby 'Barnacles' Higgins", 14, 10, 2, 60, DoA.ALIVE, PlayerClasses.WARRIOR);
-		playerRepository.save(barnacles);
+		npcRepository.save(barnacles);
 	}
 
 	@Test
 	public void createEnemy(){
-		Enemy seagull = new Enemy("seagull", 4, 1111, 0, 12, DoA.ALIVE );
-		playerRepository.save(seagull);
+		Enemy seagull = new Enemy("Clive", 4, 1111, 0, 12, DoA.ALIVE );
+		enemyRepository.save(seagull);
 	}
 
 	@Test
@@ -56,7 +62,7 @@ class ProjectApplicationTests {
 		UserCharacter me = new UserCharacter();
 		me.setName("It me Cthulu");
 		me.buildCharacter();
-		playerRepository.save(me);
+		userCharRepository.save(me);
 	}
 
 	@Test

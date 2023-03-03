@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 @MappedSuperclass
-@Table(name="players")
+//@Table(name="players")
 public abstract class Player {
 
     @Id

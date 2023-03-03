@@ -36,6 +36,7 @@ public class Ship {
         this.status = status;
     }
 
+    public Ship(){};
     public String getName() {
         return name;
     }

@@ -4,22 +4,27 @@ import com.seacleaver.example.project.enums.DoA;
 import com.seacleaver.example.project.enums.PlayerClasses;
 import com.seacleaver.example.project.models.Player;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.Random;
 
 @Entity
+@Table(name = "player")
 public class UserCharacter extends Player {
 
+    @Column(name = "str")
     private int str;
+    @Column(name = "mag")
     private int mag;
+    @Column(name = "con")
     private int con;
+    @Column(name = "luck")
     private int luck;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "player_class")
     private PlayerClasses playerClass;
 
+    @Column(name = "weapon")
     private String weapon;
 
     public UserCharacter(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status, int str, int mag, int con, int luck, PlayerClasses playerClass, String weapon) {

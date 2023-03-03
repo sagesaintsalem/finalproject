@@ -3,15 +3,16 @@ package com.seacleaver.example.project.models;
 import com.seacleaver.example.project.enums.DoA;
 import com.seacleaver.example.project.enums.PlayerClasses;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "npcs")
 public class NPCs extends Player{
 
+
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "npcClass")
     private PlayerClasses playerClass;
     public NPCs(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status, PlayerClasses playerClass) {
         super(name, armour, attackPoints, magicPoints, healthPoints, status);
