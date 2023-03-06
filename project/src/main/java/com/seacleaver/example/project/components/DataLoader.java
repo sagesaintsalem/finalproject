@@ -68,7 +68,7 @@ public class DataLoader implements ApplicationRunner{
         Kraken kraken = new Kraken("Kraken", 14, 12, 100, 12, DoA.ALIVE);
         bossRepository.save(kraken);
 
-        UserCharacter userCharacter = new UserCharacter();
-        playerRepository.save(userCharacter);
+//        UserCharacter userCharacter = new UserCharacter();
+//        playerRepository.save(userCharacter);
     }
 }

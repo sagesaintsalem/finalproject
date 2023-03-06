@@ -58,7 +58,7 @@ const BottomDiv = styled.div`
 `
 
 
-const Intro = () => {
+const Intro = ({player}) => {
     const navigate = useNavigate();
 
     const toNextPage = (event) => {
@@ -72,7 +72,7 @@ const Intro = () => {
             <TextDiv>
                 <StoryText>You leave your cabin and step out on deck. It is a cool, grey morning. You can hear your crew quietly talking amongst themselves as they work, the faint sound of seagulls and the low roar of the sea. A large man with an octopus head approaches you. </StoryText>
 
-                <BarnaclesText><strong>Barnacles: </strong>Good Morning, Cap'n! </BarnaclesText>
+                <BarnaclesText><strong>Barnacles: </strong>Good Morning, Cap'n {player.name}! </BarnaclesText>
                 
                 <StoryText>Barnacles is your mild-mannered and level-headed First Mate. He is a warrior, a great swordsman, and cursed to look like an octopus after spurning a sea witch's advances.</StoryText>
                 <StoryText>Behind Barnacles, you see a smirking man with a human head, a long blue scarf bundled around his neck, and a seemingly annoyed parrot on his shoulder.</StoryText>

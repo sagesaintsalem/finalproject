@@ -21,4 +21,10 @@ public class PlayerController {
     public ResponseEntity<List<UserCharacter>>getAllPlayers(){
         return new ResponseEntity<>(userCharRepository.findAll(), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/players")
+    public ResponseEntity<UserCharacter>createPlayer(@RequestBody UserCharacter player){
+        userCharRepository.save(player);
+        return new ResponseEntity<>(player, HttpStatus.CREATED);
+    }
 }
