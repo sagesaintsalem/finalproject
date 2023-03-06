@@ -1,5 +1,4 @@
 package com.seacleaver.example.project.models;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +22,14 @@ public class Raid {
     }
 
     public Raid(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getPortName() {
         return portName;

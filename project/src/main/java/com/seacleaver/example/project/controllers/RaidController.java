@@ -28,9 +28,10 @@ public class RaidController {
     }
 
 
-    @PutMapping(value = "raids/loot/{id}")
+    @PutMapping(value = "raids/{id}")
     public ResponseEntity<Raid> lootRouge(@RequestBody Raid updatedPort, @PathVariable Long id) {
         Raid raidtoChange = raidRepository.findById(id).get();
+        raidtoChange.setPortName(updatedPort.getPortName());
         raidtoChange.setLoot(updatedPort.getLoot());
         raidtoChange.setSpecialWeapon(updatedPort.getSpecialWeapon());
         raidRepository.save(raidtoChange);

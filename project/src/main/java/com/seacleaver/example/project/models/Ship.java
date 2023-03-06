@@ -98,4 +98,12 @@ public class Ship {
            enemyShip.setStatus(ShipStatus.WRECKED);
        }
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

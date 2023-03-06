@@ -7,6 +7,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "enemies")
+
+
 public class Enemy extends Player{
     public Enemy(String name, int armour, int attackPoints, int magicPoints, int healthPoints, DoA status) {
         super(name, armour, attackPoints, magicPoints, healthPoints, status);

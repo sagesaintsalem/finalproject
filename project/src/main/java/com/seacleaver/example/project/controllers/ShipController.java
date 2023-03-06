@@ -30,9 +30,9 @@ public class ShipController {
     @PutMapping(value = "/ships/{id}")
     public ResponseEntity<Ship> addToCoffers(@RequestBody Ship richerShip, @PathVariable Long id){
         Ship shipToChange = shipRepository.findById(id).get();
-        shipToChange.setName(shipToChange.getName());
-        shipToChange.setHealthPoints(shipToChange.getHealthPoints());
+        shipToChange.setName(richerShip.getName());
         shipToChange.setCoffers(richerShip.getCoffers());
+        shipToChange.setHealthPoints(richerShip.getHealthPoints());
         shipToChange.setArmour(richerShip.getArmour());
         shipToChange.setAttkPoints(richerShip.getAttkPoints());
         shipToChange.setStatus(richerShip.getStatus());

@@ -70,8 +70,9 @@ const HiddenDiv = styled.div`
 `
 
 
-const South = ({raids, ships}) => {
+const South = ({raids, ships, updateShip}) => {
     const [show, setShow] = useState(false);
+    // const [seaCoffers, setSeaCoffers] = useState(0);
     const navigate = useNavigate();
     const request = new Request();
 
@@ -80,17 +81,26 @@ const South = ({raids, ships}) => {
 
     }
 
-    const seacleaver = ships[0];
-    const rouge = raids[0];
+    const seacleaver = ships.find(ship => ship.id === 1);
+    const rouge = raids.find(raid => raid.id === 1);
 
     const stolenMoney = (event) => {
-        const updatedCoffers = 3000;
-        const richerShip = {coffers:updatedCoffers};
-        const updateShip = request.put('api/ships/0', richerShip);
+        const richerShip = {
+		name: "The Seacleaver",
+		coffers: 3000,
+		healthPoints: 150,
+		armour: 15,
+		attkPoints: 20,
+		status: "SAILING"};
+        request.put('/api/ships/' + seacleaver.id, richerShip).then(data => data.json()).then(data => updateShip(data));
+        
 
-        const rougeLoot = 0;
-        // const poorerPort = {loot:rougeLoot};
-        const updatePort = request.put('api/raids/0', rougeLoot);
+        const rougeLoot = {
+            portName:"Port Rouge",
+            loot: 0,
+            specialWeapon: null
+        }
+        const updatePort = request.put('/api/raids/' + rouge.id, rougeLoot);
 
         Promise.all([updateShip, updatePort])
         navigate('/sail')

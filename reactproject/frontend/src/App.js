@@ -40,6 +40,18 @@ function App(){
           })
   }, [])
 
+  const updateShip = (updatedShip) => {
+    let updatedShips = []
+    ships.forEach(ship => {
+      if (ship.id === updatedShip.id){
+        updatedShips.push(updatedShip)
+      } else {
+        updatedShips.push(ship)
+      }
+    })
+    setShips(updatedShips);
+  }
+
   return(
     <Router>
       <Routes>
@@ -47,7 +59,7 @@ function App(){
       <Route path='/charcreation' element={<CharCreation onCreate={setPlayer}/>} />
       <Route path='/sail' element={<Sail />} />
       <Route path='/intro' element={<Intro player={player}/>} />
-      <Route path='/south' element={<South raids={raids} ships={ships} />} />
+      <Route path='/south' element={<South raids={raids} ships={ships} updateShip={updateShip} />} />
       <Route path='/north' element={<North enemies={enemies} ships={ships} npcs={npcs} player={player}/>} />
       <Route path='/east' element={<East enemies={enemies} ships={ships} npcs={npcs} player={player} />} />
       <Route path='/west' element={<West raids={raids} ships={ships}/>} />
