@@ -107,7 +107,7 @@ function App(){
 
   return(
     <Router>
-      <NavBar player={player} ships={ships}/>
+      {ships ?<NavBar player={player} ships={ships}/> : null}
       <Routes>
       <Route path='/' element={<Homepage />} />
       <Route path='/charcreation' element={<CharCreation onCreate={setPlayer}/>} />
