@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Request from '../../helpers/request';
 
 const PageDiv = styled.div`
@@ -70,9 +70,8 @@ const HiddenDiv = styled.div`
 `
 
 
-const South = ({raids, ships, updateShip}) => {
+const South = ({raids, updateRaid, ships, updateShip}) => {
     const [show, setShow] = useState(false);
-    // const [seaCoffers, setSeaCoffers] = useState(0);
     const navigate = useNavigate();
     const request = new Request();
 
@@ -85,10 +84,11 @@ const South = ({raids, ships, updateShip}) => {
     const rouge = raids.find(raid => raid.id === 1);
 
     const stolenMoney = (event) => {
+        const updatedCoffers = seacleaver.coffers + 3000;
         const richerShip = {
 		name: "The Seacleaver",
-		coffers: 3000,
-		healthPoints: 150,
+		coffers: updatedCoffers,
+		healthPoints: seacleaver.healthPoints,
 		armour: 15,
 		attkPoints: 20,
 		status: "SAILING"};
@@ -100,9 +100,9 @@ const South = ({raids, ships, updateShip}) => {
             loot: 0,
             specialWeapon: null
         }
-        const updatePort = request.put('/api/raids/' + rouge.id, rougeLoot);
+        request.put('/api/raids/' + rouge.id, rougeLoot).then(data => data.json()).then(data => updateRaid(data));
 
-        Promise.all([updateShip, updatePort])
+        Promise.all([updateShip, updateRaid])
         navigate('/sail')
     }
 

@@ -22,6 +22,14 @@ public class NPCs extends Player{
     public NPCs() {
     }
 
+    public PlayerClasses getPlayerClass() {
+        return playerClass;
+    }
+
+    public void setPlayerClass(PlayerClasses playerClass) {
+        this.playerClass = playerClass;
+    }
+
     public void castThunderbolt(Enemy enemy) {
         if(this.playerClass == PlayerClasses.MAGE) {
             int enemyHP = enemy.getHealthPoints();

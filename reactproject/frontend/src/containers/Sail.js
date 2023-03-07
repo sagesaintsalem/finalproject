@@ -6,6 +6,7 @@ const PageDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 2em;
 `
 
 const Button = styled.button`

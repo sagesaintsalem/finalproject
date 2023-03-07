@@ -1,5 +1,4 @@
 package com.seacleaver.example.project.controllers;
-
 import com.seacleaver.example.project.models.Enemy;
 import com.seacleaver.example.project.repositories.EnemyRepository;
 import org.springframework.beans.factory.annotation.Autowired;

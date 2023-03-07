@@ -8,7 +8,9 @@ import South from './containers/South/South';
 import North from './containers/North/North';
 import East from './containers/East/East';
 import West from './containers/West/West';
+import Boss from './containers/Boss'
 import Request from "./helpers/request";
+import NavBar from './containers/NavBar';
 
 
 function App(){
@@ -23,7 +25,6 @@ function App(){
   useEffect(()=>{
       const request = new Request();
       
-  
       const npcPromise = request.get('/api/npcs');
       const enemyPromise = request.get('/api/enemies');
       const shipPromise = request.get('/api/ships');
@@ -52,17 +53,71 @@ function App(){
     setShips(updatedShips);
   }
 
+
+  const updateNPC = (updatedNpc) => {
+    let updatedNpcs = []
+    npcs.forEach(npc => {
+      if (npc.id === updatedNpc.id){
+        updatedNpcs.push(updatedNpc)
+      } else {
+        updatedNpcs.push(npc)
+      }
+    })
+    setNpcs(updatedNpcs);
+  }
+
+  const updateEnemy = (updatedEnemy) => {
+    let updatedEnemies = []
+    enemies.forEach(enemy => {
+      if (enemy.id === updatedEnemy.id){
+        updatedEnemies.push(updatedEnemy)
+      } else {
+        updatedEnemies.push(enemy)
+      }
+    })
+    setEnemies(updatedEnemies);
+  }
+
+  const updateShips = (updatedShips)=>{
+    setShips(updatedShips)
+  }
+
+  const updateRaid = (updatedRaid) => {
+    let updatedRaids = []
+    raids.forEach(raid => {
+      if (raid.id === updatedRaid.id){
+        updatedRaids.push(updatedRaid)
+      } else {
+        updatedRaids.push(raid)
+      }
+    })
+    setRaids(updatedRaids);
+  }
+
+  // Need a player update function here
+  const updatePlayer = (updatedPlayer) => {
+    setPlayer(updatedPlayer);
+  }
+  
+
+  // Need a kraken update function here
+  const updateKraken = (updatedKraken) => {
+    setKraken(updatedKraken);
+  }
+
   return(
     <Router>
+      <NavBar player={player} ships={ships}/>
       <Routes>
       <Route path='/' element={<Homepage />} />
       <Route path='/charcreation' element={<CharCreation onCreate={setPlayer}/>} />
       <Route path='/sail' element={<Sail />} />
       <Route path='/intro' element={<Intro player={player}/>} />
-      <Route path='/south' element={<South raids={raids} ships={ships} updateShip={updateShip} />} />
-      <Route path='/north' element={<North enemies={enemies} ships={ships} npcs={npcs} player={player}/>} />
-      <Route path='/east' element={<East enemies={enemies} ships={ships} npcs={npcs} player={player} />} />
-      <Route path='/west' element={<West raids={raids} ships={ships}/>} />
+      <Route path='/south' element={<South raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip} />} />
+      <Route path='/north' element={<North enemies={enemies} updateEnemy={updateEnemy} npcs={npcs} updateNPC={updateNPC} player={player} updatePlayer={updatePlayer}/>} />
+      {ships ? <Route path='/east' element={<East ships={ships} updateShip={updateShip} updateShips={updateShips}/>} /> : null}
+      <Route path='/west' element={<West raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip}/>} />
+      <Route path='/boss' element={<Boss ships={ships} updateShip={updateShip} npcs={npcs} updateNPC={updateNPC} kraken={kraken} updateKraken={updateKraken} player={player} updatePlayer={updatePlayer} />} />
       </Routes>
     </Router>
   )

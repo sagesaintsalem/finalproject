@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import Request from '../../helpers/request';
 
 const PageDiv = styled.div`
     display: flex;
@@ -68,7 +69,7 @@ const HiddenDiv = styled.div`
     justify-content: center;
 `
 
-const West = ({raids, ships}) => {
+const West = ({raids, updateRaid, ships, updateShip}) => {
 
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
@@ -79,19 +80,29 @@ const West = ({raids, ships}) => {
 
     }
 
-    const seacleaver = ships[0];
-    const raven = raids[1];
+    const seacleaver = ships.find(ship => ship.id === 1);
+    const raven = raids.find(raid => raid.id === 2);
 
     const stolenMoney = (event) => {
-        const updatedCoffers = 1500;
-        const richerShip = {coffers:updatedCoffers};
-        const updateShip = request.put('api/ships/0', richerShip);
+        const updatedCoffers = seacleaver.coffers + 1500;
+        const richerShip = {
+            name: "The Seacleaver",
+            coffers:updatedCoffers,
+            healthPoints: seacleaver.healthPoints,
+            armour: 15,
+		    attkPoints: 20,
+		    status: "SAILING"
+        };
+        request.put('api/ships/' + seacleaver.id, richerShip).then(data => data.json()).then(data=>updateShip(data));
 
-        const ravenLoot = 0;
-        // const poorerPort = {loot:rougeLoot};
-        const updatePort = request.put('api/raids/1', ravenLoot);
+        const ravenLoot = {
+            portName:"Port Raven",
+            loot: 0,
+            specialWeapon: "gunblade"
+        };
+        request.put('api/raids/' + raven.id, ravenLoot).then(data => data.json()).then(data => updateRaid(data));
 
-        Promise.all([updateShip, updatePort])
+        Promise.all([updateShip, updateRaid])
         navigate('/sail')
     }
 
@@ -110,8 +121,8 @@ const West = ({raids, ships}) => {
                     </Patches><Barnacles>
                         <BarnaclesText><strong>Barnacles: </strong>SILENCE, PATCHES! <StoryText>Barnacles glares at Patches, his eyes bulging, before regaining his composure.</StoryText> Though he has a point, this place looks haunted and empty...we <em>could</em> have a look around, though I think we'd find nothing but trouble. What say you, Cap'n? </BarnaclesText>
                     </Barnacles><BottomDiv>
-                        <Button>Explore</Button>
-                        <Button>Leave</Button>
+                        <Button onClick={() => setShow(true)}>Explore</Button>
+                        <Button onClick={backToSail}>Leave</Button>
                     </BottomDiv></>
 
             ) : (
