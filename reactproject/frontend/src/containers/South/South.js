@@ -90,7 +90,7 @@ const South = ({raids, updateRaid, ships, updateShip, setSouthVisited}) => {
 		name: "The Seacleaver",
 		coffers: updatedCoffers,
 		healthPoints: 200,
-		armour: 16,
+		armour: 17,
 		attkPoints: 40,
 		status: "SAILING"};
         request.put('/api/ships/' + seacleaver.id, richerShip).then(data => data.json()).then(data => updateShip(data));

@@ -90,7 +90,7 @@ const West = ({raids, updateRaid, ships, updateShip, setWestVisited}) => {
             name: "The Seacleaver",
             coffers:updatedCoffers,
             healthPoints: seacleaver.healthPoints,
-            armour: 16,
+            armour: 17,
 		    attkPoints: 40,
 		    status: "SAILING"
         };

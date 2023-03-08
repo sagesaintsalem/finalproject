@@ -123,19 +123,6 @@ const North = ({enemies, updateEnemy, npcs, updateNPC, player, setNorthVisited})
                 defendingParty = [player, barnacles, patches]
             }
             
-            // console.log('roll', roll);
-            // let attacker = {...currentTurn}
-            // console.log('attacking', attacker)
-
-            // const attackTotal = attacker.reduce((runTotal, character) => {
-            //     return runTotal + character.attackPoints;
-                
-            // },0);
-
-            // defendingParty.forEach(character => {
-            //     let health = character.healthPoints;
-            //     let armour = character.armour
-            // })
             attackingParty.forEach((attackingCharacter) => {
                 const attack = attackingCharacter.attackPoints;
                 const roll = (Math.floor(Math.random() * 20 - 1) + 1)
@@ -143,7 +130,6 @@ const North = ({enemies, updateEnemy, npcs, updateNPC, player, setNorthVisited})
 
                 defendingParty.forEach(defendingCharacter => {
 
-                    // let health = defendingCharacter.healthPoints;
                     const armour = defendingCharacter.armour
                     
                     if (defendingCharacter.healthPoints === 0) {
