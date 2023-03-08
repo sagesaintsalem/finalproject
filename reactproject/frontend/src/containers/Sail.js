@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const PageDiv = styled.div`
     display: flex;
@@ -30,12 +30,6 @@ const Barnacles = styled.div`
     justify-content: center;
 `
 
-const Patches = styled.div`
-    padding: 1em;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-`
 
 const TextDiv = styled.div`
     display: flex;
@@ -48,11 +42,7 @@ const BarnaclesText = styled.h4`
     text-align: center;
 `
 
-const PatchesText = styled.h4`
-    color: pink;
-    font-size:16px;
-    text-align: center;
-`
+
 
 const BottomDiv = styled.div`
     padding: 1em;
@@ -62,9 +52,20 @@ const BottomDiv = styled.div`
     justify-content: center;
 `
 
-const Sail = () => {
+const HiddenDiv = styled.div`
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
 
+const Sail = ({allVisited}) => {
+    const [show, setShow] = useState(false)
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        handleFinish();
+    }, false)
 
     const sailSouth = (event) => {
         navigate('/south')
@@ -82,20 +83,42 @@ const Sail = () => {
         navigate('/west')
     }
 
-    return(
-        <PageDiv>
-        <Barnacles>
-            <TextDiv>
-            <BarnaclesText><strong>Barnacles: </strong>Which direction shall we sail, Cap'n?</BarnaclesText>
-            </TextDiv>
-        </Barnacles>
 
-        <BottomDiv>
-            <Button onClick={sailNorth}>North</Button>
-            <Button onClick={sailSouth}>South</Button>
-            <Button onClick={sailEast}>East</Button>
-            <Button onClick={sailWest}>West</Button>
-        </BottomDiv>
+    const handleFinish = () => {
+        if(allVisited === true){
+            setShow(true);
+        }
+    }
+
+    const restart = (event) => {
+        navigate('/');
+    }
+
+    return(
+
+        <PageDiv>
+            {!show ? (
+        <><Barnacles>
+                    <TextDiv>
+                        <BarnaclesText><strong>Barnacles: </strong>Which direction shall we sail, Cap'n?</BarnaclesText>
+                    </TextDiv>
+                </Barnacles><BottomDiv>
+                        <Button onClick={sailNorth}>North</Button>
+                        <Button onClick={sailSouth}>South</Button>
+                        <Button onClick={sailEast}>East</Button>
+                        <Button onClick={sailWest}>West</Button>
+                    </BottomDiv></>
+
+            ) : (
+            <HiddenDiv onChange={handleFinish}>
+                <StoryText>You sail away upon The Seacleaver, richer in pocket and in experience!</StoryText>
+                <StoryText>Thank you for playing this demo!</StoryText>
+                <BottomDiv>
+                    <Button onClick={restart}>Restart</Button>
+                </BottomDiv>
+            </HiddenDiv>
+            
+        )}
         </PageDiv>
     )
 

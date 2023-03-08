@@ -20,9 +20,9 @@ const NavText = styled.h4`
 `
 
 const NavBar = ({player, ships}) => {
-
+    
     const seacleaver = ships.find(ship => ship.id === 1);
-    console.log(seacleaver);
+    
     
     return(
         

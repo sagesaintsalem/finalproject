@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Request from '../../helpers/request';
 
-const PageDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
+// const PageDiv = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+// `
 
 const Button = styled.button`
     background-color: yellow;
@@ -74,10 +74,12 @@ const StatText = styled.div`
     text-align: center;
 `
 
-const East = ({ships, updateShip, updateShips}) => {
+const East = ({ships, updateShip, updateShips, setEastVisited}) => {
 
     const [show, setShow] = useState(false);
     const [currentTurn, setCurrentTurn] = useState(0)
+    const [hitMessage, setHitMessage] = useState("");
+    const [endBattle, setEndBattle] = useState("");
     const navigate = useNavigate();
     const request = new Request();
 
@@ -90,15 +92,6 @@ const East = ({ships, updateShip, updateShips}) => {
     let seacleaver = ships.find(ship => ship.id === 1);
     let ursula = ships.find(ship => ship.id === 2);
 
-    // const setup = () => {
-    //     const startShip = ships.find(ship => ship.id === 1);
-    //     setCurrentTurn(startShip)
-    // }
-
-    // useEffect(() => {
-    //     if(ships.length > 0){setup()}
-
-    // }, [ships])
 
 
 
@@ -108,7 +101,7 @@ const East = ({ships, updateShip, updateShips}) => {
 
         let playerShip = {}
         let enemyShip = {}
-        if(currentTurn == 0){
+        if(currentTurn === 0){
             playerShip = {...ships[0]}
             enemyShip = {...ships[1]}
         }else{
@@ -118,27 +111,51 @@ const East = ({ships, updateShip, updateShips}) => {
 
         let roll = (Math.floor(Math.random() * 20 - 1) + 1)
         console.log('roll', roll);
-        let newShip = {... currentTurn}
+        let newShip = {...currentTurn}
         console.log('newship', newShip);
         
         let attack = playerShip.attkPoints;
         let armour = enemyShip.armour;
         if(roll >= armour){
             enemyShip.healthPoints -= attack
+            setHitMessage(`${playerShip.name} hit ${enemyShip.name} for ${attack} damage!`)
+        } else {
+            setHitMessage(`${playerShip.name} missed!`)
         }
 
         let newShips = [playerShip, enemyShip]
         updateShips(newShips);
 
-        if(currentTurn == 0){
+        if(currentTurn === 0){
             setCurrentTurn(1)
         }else{
             setCurrentTurn(0)
         }            
+        } else {
+            if(ships[0].healthPoints <= 0){
+                setHitMessage("")
+                setEndBattle("You go with The Seacleaver down to Davy Jones' locker...")
+                
+            } else if(ships[1].healthPoints <= 0){
+                setHitMessage("")
+                repair();
+                setEndBattle("You watch Ursula's Revenge go down as your crew cheers in triumph! After the battle, you and the crew repair the ship.")
+                setEastVisited(true);
+            }
         }
         }
     
-
+        const repair = () => {
+            setEastVisited(true)
+            const fixedShip = {
+            name: "The Seacleaver",
+            coffers: seacleaver.coffers,
+            healthPoints: 200,
+            armour: 16,
+            attkPoints: 20,
+            status: "SAILING"};
+            request.put('/api/ships/' + seacleaver.id, fixedShip).then(data => data.json()).then(data => updateShip(data));
+        }
 
 
     return(
@@ -173,15 +190,19 @@ const East = ({ships, updateShip, updateShips}) => {
             <TextDiv>
                 <StoryText>Ursula's Revenge</StoryText>
                 <StatText value={ursula.healthPoints}>HP: {ursula.healthPoints}</StatText>
-                <StatText value={ursula.attkPoints}>Attack: {ursula.attkPoints}</StatText>  
                 <Barnacles>
                     <BarnaclesText>
                     <strong>Barnacles: </strong>Ready to fire, Cap'n!
                     </BarnaclesText>
                 </Barnacles>
+                <StatText>
+                <StoryText>{hitMessage}</StoryText>
+                    <StoryText>{endBattle}</StoryText>
+                </StatText>
             </TextDiv>
             <BottomDiv>
                 <Button onClick={fire}>Fire!</Button>
+                <Button onClick={backToSail}>Leave</Button>
             </BottomDiv>
         </HiddenDiv>
         </>    

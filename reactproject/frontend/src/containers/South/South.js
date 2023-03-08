@@ -37,10 +37,10 @@ const Patches = styled.div`
     justify-content: center;
 `
 
-const TextDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+// const TextDiv = styled.div`
+//     display: flex;
+//     flex-direction: column;
+// `
 
 const BarnaclesText = styled.h4`
     color: orange;
@@ -70,7 +70,7 @@ const HiddenDiv = styled.div`
 `
 
 
-const South = ({raids, updateRaid, ships, updateShip}) => {
+const South = ({raids, updateRaid, ships, updateShip, setSouthVisited}) => {
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
     const request = new Request();
@@ -84,13 +84,14 @@ const South = ({raids, updateRaid, ships, updateShip}) => {
     const rouge = raids.find(raid => raid.id === 1);
 
     const stolenMoney = (event) => {
+        setSouthVisited(true);
         const updatedCoffers = seacleaver.coffers + 3000;
         const richerShip = {
 		name: "The Seacleaver",
 		coffers: updatedCoffers,
-		healthPoints: seacleaver.healthPoints,
+		healthPoints: 200,
 		armour: 16,
-		attkPoints: 20,
+		attkPoints: 40,
 		status: "SAILING"};
         request.put('/api/ships/' + seacleaver.id, richerShip).then(data => data.json()).then(data => updateShip(data));
         
@@ -127,7 +128,9 @@ const South = ({raids, updateRaid, ships, updateShip}) => {
                 <HiddenDiv>
                     <StoryText>Your crew yells in excitement, swords and staffs aloft, as your ship advances to Port Rouge!</StoryText>
                     <StoryText>After 3 days of rampaging through the streets, dodging and slicing the King's guards and sailors and a lot of stealing, you leave with The Seacleaver {rouge.loot} gold pieces richer!</StoryText>
+                    <BottomDiv>
                     <Button onClick={stolenMoney}>Continue</Button>
+                    </BottomDiv>
                 </HiddenDiv>
             )}
         </PageDiv>

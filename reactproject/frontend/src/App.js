@@ -21,6 +21,11 @@ function App(){
   const [ships, setShips] = useState([])
   const [raids, setRaids] = useState([])
   const [kraken, setKraken] = useState([])
+  const [northVisited, setNorthVisited] = useState(false)
+  const [southVisited, setSouthVisited] = useState(false)
+  const [eastVisited, setEastVisited] = useState(false)
+  const [westVisited, setWestVisited] = useState(false)
+  const [allVisited, setAllVisited] = useState(false)
   
   useEffect(()=>{
       const request = new Request();
@@ -105,18 +110,22 @@ function App(){
     setKraken(updatedKraken);
   }
 
+  if(northVisited === true && southVisited === true && eastVisited === true && westVisited === true){
+    setAllVisited(true)
+}
+
   return(
     <Router>
-      {ships ?<NavBar player={player} ships={ships}/> : null}
+      {ships.length > 0 ?<NavBar player={player} ships={ships}/> : null}
       <Routes>
       <Route path='/' element={<Homepage />} />
       <Route path='/charcreation' element={<CharCreation onCreate={setPlayer}/>} />
-      <Route path='/sail' element={<Sail />} />
+      <Route path='/sail' element={<Sail setAllVisited={setAllVisited} />} />
       <Route path='/intro' element={<Intro player={player}/>} />
-      <Route path='/south' element={<South raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip} />} />
-      <Route path='/north' element={<North enemies={enemies} updateEnemy={updateEnemy} npcs={npcs} updateNPC={updateNPC} player={player} updatePlayer={updatePlayer}/>} />
-      {ships ? <Route path='/east' element={<East ships={ships} updateShip={updateShip} updateShips={updateShips}/>} /> : null}
-      <Route path='/west' element={<West raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip}/>} />
+      <Route path='/south' element={<South raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip} setSouthVisited={setSouthVisited} />} />
+      <Route path='/north' element={<North enemies={enemies} updateEnemy={updateEnemy} npcs={npcs} updateNPC={updateNPC} player={player} updatePlayer={updatePlayer} setNorthVisited={setNorthVisited}/>} />
+      {ships ? <Route path='/east' element={<East ships={ships} updateShip={updateShip} updateShips={updateShips} setEastVisited={setEastVisited} />} /> : null}
+      <Route path='/west' element={<West raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip} setWestVisited={setWestVisited} />} />
       <Route path='/boss' element={<Boss ships={ships} updateShip={updateShip} npcs={npcs} updateNPC={updateNPC} kraken={kraken} updateKraken={updateKraken} player={player} updatePlayer={updatePlayer} />} />
       </Routes>
     </Router>

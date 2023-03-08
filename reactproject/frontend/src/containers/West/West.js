@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Request from '../../helpers/request';
 
 const PageDiv = styled.div`
@@ -37,10 +37,10 @@ const Patches = styled.div`
     justify-content: center;
 `
 
-const TextDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+// const TextDiv = styled.div`
+//     display: flex;
+//     flex-direction: column;
+// `
 
 const BarnaclesText = styled.h4`
     color: orange;
@@ -69,7 +69,7 @@ const HiddenDiv = styled.div`
     justify-content: center;
 `
 
-const West = ({raids, updateRaid, ships, updateShip}) => {
+const West = ({raids, updateRaid, ships, updateShip, setWestVisited}) => {
 
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
@@ -84,13 +84,14 @@ const West = ({raids, updateRaid, ships, updateShip}) => {
     const raven = raids.find(raid => raid.id === 2);
 
     const stolenMoney = (event) => {
+        setWestVisited(true)
         const updatedCoffers = seacleaver.coffers + 1500;
         const richerShip = {
             name: "The Seacleaver",
             coffers:updatedCoffers,
             healthPoints: seacleaver.healthPoints,
             armour: 16,
-		    attkPoints: 20,
+		    attkPoints: 40,
 		    status: "SAILING"
         };
         request.put('api/ships/' + seacleaver.id, richerShip).then(data => data.json()).then(data=>updateShip(data));
@@ -130,7 +131,9 @@ const West = ({raids, updateRaid, ships, updateShip}) => {
 
             <StoryText>Your crew silently and anxiously steer the ship towards Port Raven...</StoryText>
             <StoryText>You find the port completely abandoned, with the walls and every rock carved with the exact same sigil. You and your crew hastily take what they can find and you are back upon The Seacleaver within an hour, {raven.loot} gold pieces richer.</StoryText>
+            <BottomDiv>
             <Button onClick={stolenMoney}>Continue</Button>
+            </BottomDiv>
         </HiddenDiv>
 
 
