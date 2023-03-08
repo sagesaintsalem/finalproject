@@ -24,23 +24,23 @@ const StoryText = styled.h4`
 `
 
 const Barnacles = styled.div`
-    padding: 0.3em;
+    /* padding: 0.1em; */
     display: flex;
     flex-direction: column;
     justify-content: center;
 `
 
 const Patches = styled.div`
-    padding: 0.3em;
+    /* padding: 0.1em; */
     display: flex;
     flex-direction: column;
     justify-content: center;
 `
 
-// const TextDiv = styled.div`
-//     display: flex;
-//     flex-direction: column;
-// `
+const TextDiv = styled.div`
+    display: flex;
+    justify-content:center;
+`
 
 const BarnaclesText = styled.h4`
     color: orange;
@@ -55,7 +55,7 @@ const PatchesText = styled.h4`
 `
 
 const BottomDiv = styled.div`
-    padding: 1em;
+    /* padding: 0.1em; */
     display: flex;
     flex-direction: row;
     gap: 1em;
@@ -63,7 +63,7 @@ const BottomDiv = styled.div`
 `
 
 const HiddenDiv = styled.div`
-    padding: 0.5em;
+    /* padding: 0.1em; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,10 +117,14 @@ const West = ({raids, updateRaid, ships, updateShip, setWestVisited}) => {
                     </BarnaclesText>
                 </Barnacles><Patches>
                         <PatchesText>
-                            <strong>Patches: </strong>*growl* Thar be ghosts...curses...<StoryText>You notice that Patches is biting his lip, his brows furrowed. The second he notices you looking at him, he stands up straight and gives a mischevious smirk and sideways glance to Barnacles.</StoryText>*SQUAWK!* YOU KNOW CURSES, CALAMARI!!
+                            <strong>Patches: </strong>*growl* Thar be ghosts...curses...
                         </PatchesText>
+                        <StoryText>You notice that Patches is biting his lip, his brows furrowed. The second he notices you looking at him, he stands up straight and gives a mischevious smirk and sideways glance to Barnacles.</StoryText>
+                        <PatchesText>*SQUAWK!* YOU KNOW CURSES, CALAMARI!!</PatchesText>
                     </Patches><Barnacles>
-                        <BarnaclesText><strong>Barnacles: </strong>SILENCE, PATCHES! <StoryText>Barnacles glares at Patches, his eyes bulging, before regaining his composure.</StoryText> Though he has a point, this place looks haunted and empty...we <em>could</em> have a look around, though I think we'd find nothing but trouble. What say you, Cap'n? </BarnaclesText>
+                        <BarnaclesText><strong>Barnacles: </strong>SILENCE, PATCHES! </BarnaclesText>
+                        <StoryText>Barnacles glares at Patches, his eyes bulging, before regaining his composure.</StoryText>
+                        <BarnaclesText>Though he has a point, this place looks haunted and empty...we <em>could</em> have a look around, though I think we'd find nothing but trouble. What say you, Cap'n?</BarnaclesText>
                     </Barnacles><BottomDiv>
                         <Button onClick={() => setShow(true)}>Explore</Button>
                         <Button onClick={backToSail}>Leave</Button>
@@ -130,6 +134,9 @@ const West = ({raids, updateRaid, ships, updateShip, setWestVisited}) => {
         <HiddenDiv>
 
             <StoryText>Your crew silently and anxiously steer the ship towards Port Raven...</StoryText>
+            <TextDiv>
+            <img src="https://live.staticflickr.com/65535/52734349399_c62b08ecd3_w.jpg" width="150" height="200" alt="sigil"/>
+            </TextDiv>
             <StoryText>You find the port completely abandoned, with the walls and every rock carved with the exact same sigil. You and your crew hastily take what they can find and you are back upon The Seacleaver within an hour, {raven.loot} gold pieces richer.</StoryText>
             <BottomDiv>
             <Button onClick={stolenMoney}>Continue</Button>

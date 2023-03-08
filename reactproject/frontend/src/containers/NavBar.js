@@ -1,13 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import Request from '../helpers/request';
 
-const NavDiv = styled.div`
-    padding: 0.1em;
-    display: flex;
-    flex-direction: row;
-`
+
 const TextWrap = styled.div`
     display: flex;
     flex-direction: row;
@@ -26,13 +20,13 @@ const NavBar = ({player, ships}) => {
     
     return(
         
-        <>
+        <TextWrap>
             
                 <NavText value={player}><strong>Captain {player.name} - </strong>HP: {player.healthPoints} Armour: {player.armour}  Class: {player.playerClass} Weapon: {player.weapon}</NavText>
           
                 <NavText value={seacleaver}><strong>The Seacleaver - </strong>HP: {seacleaver.healthPoints} Armour: {seacleaver.armour} Coffers: {seacleaver.coffers}</NavText>
            
-        </>
+        </TextWrap>
     )}
 
 export default NavBar;
