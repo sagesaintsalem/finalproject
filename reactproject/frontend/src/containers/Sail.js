@@ -63,9 +63,9 @@ const Sail = ({allVisited}) => {
     const [show, setShow] = useState(false)
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        handleFinish();
-    }, false)
+    // useEffect(()=>{
+    //     handleFinish();
+    // }, false)
 
     const sailSouth = (event) => {
         navigate('/south')
@@ -86,6 +86,7 @@ const Sail = ({allVisited}) => {
 
     const handleFinish = () => {
         if(allVisited === true){
+            console.log('It break')
             setShow(true);
         }
     }
@@ -97,7 +98,16 @@ const Sail = ({allVisited}) => {
     return(
 
         <PageDiv>
-            {!show ? (
+            {allVisited ? (
+            <HiddenDiv onChange={handleFinish}>
+                <StoryText>You sail away upon The Seacleaver, richer in pocket and in experience!</StoryText>
+                <StoryText>Thank you for playing this demo!</StoryText>
+                <BottomDiv>
+                    <Button onClick={restart}>Restart</Button>
+                </BottomDiv>
+            </HiddenDiv>
+            
+        ) : (
         <><Barnacles>
                     <TextDiv>
                         <BarnaclesText><strong>Barnacles: </strong>Which direction shall we sail, Cap'n?</BarnaclesText>
@@ -109,16 +119,7 @@ const Sail = ({allVisited}) => {
                         <Button onClick={sailWest}>West</Button>
                     </BottomDiv></>
 
-            ) : (
-            <HiddenDiv onChange={handleFinish}>
-                <StoryText>You sail away upon The Seacleaver, richer in pocket and in experience!</StoryText>
-                <StoryText>Thank you for playing this demo!</StoryText>
-                <BottomDiv>
-                    <Button onClick={restart}>Restart</Button>
-                </BottomDiv>
-            </HiddenDiv>
-            
-        )}
+            )}
         </PageDiv>
     )
 

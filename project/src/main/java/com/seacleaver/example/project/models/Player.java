@@ -41,8 +41,6 @@ public abstract class Player {
         this.magicPoints = magicPoints;
         this.healthPoints = healthPoints;
         this.status = status;
-
-
     }
 
     public Player() {

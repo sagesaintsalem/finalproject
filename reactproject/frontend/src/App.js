@@ -46,6 +46,10 @@ function App(){
           })
   }, [])
 
+  useEffect(()=>{
+    visited();
+  }, [northVisited, southVisited, eastVisited, westVisited])
+
   const updateShip = (updatedShip) => {
     let updatedShips = []
     ships.forEach(ship => {
@@ -110,9 +114,11 @@ function App(){
     setKraken(updatedKraken);
   }
 
-  if(northVisited === true && southVisited === true && eastVisited === true && westVisited === true){
-    setAllVisited(true)
-}
+  const visited = () => {
+    if(northVisited === true && southVisited === true && eastVisited === true && westVisited === true){
+      setAllVisited(true)}
+  }
+
 
   return(
     <Router>
@@ -120,7 +126,7 @@ function App(){
       <Routes>
       <Route path='/' element={<Homepage />} />
       <Route path='/charcreation' element={<CharCreation onCreate={setPlayer}/>} />
-      <Route path='/sail' element={<Sail setAllVisited={setAllVisited} />} />
+      <Route path='/sail' element={<Sail allVisited={allVisited} />} />
       <Route path='/intro' element={<Intro player={player}/>} />
       <Route path='/south' element={<South raids={raids} updateRaid={updateRaid} ships={ships} updateShip={updateShip} setSouthVisited={setSouthVisited} />} />
       <Route path='/north' element={<North enemies={enemies} updateEnemy={updateEnemy} npcs={npcs} updateNPC={updateNPC} player={player} updatePlayer={updatePlayer} setNorthVisited={setNorthVisited}/>} />
