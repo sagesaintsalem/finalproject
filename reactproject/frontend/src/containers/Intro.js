@@ -19,14 +19,14 @@ const StoryText = styled.h4`
 `
 
 const Barnacles = styled.div`
-    padding: 1em;
+    /* padding: 1em; */
     display: flex;
     flex-direction: row;
     justify-content: center;
 `
 
 const Patches = styled.div`
-    padding: 1em;
+    /* padding: 1em; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -35,6 +35,7 @@ const Patches = styled.div`
 const TextDiv = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 0em 1em;
 `
 
 const BarnaclesText = styled.h4`
@@ -77,11 +78,11 @@ const Intro = ({player}) => {
                 <StoryText>Barnacles is your mild-mannered and level-headed First Mate. He is a warrior, a great swordsman, and cursed to look like an octopus after spurning a sea witch's advances.</StoryText>
                 <StoryText>Behind Barnacles, you see a smirking man with a human head, a long blue scarf bundled around his neck, and a seemingly annoyed parrot on his shoulder.</StoryText>
             </TextDiv>
-            <img src="https://live.staticflickr.com/65535/52728245768_0cbb4b803a.jpg" width="187.5" height="250" alt="barnacles"/>
+            <img src="https://live.staticflickr.com/65535/52728245768_0cbb4b803a.jpg" width="150" height="200" alt="barnacles"/>
         </Barnacles>
 
         <Patches>
-        <img src="https://live.staticflickr.com/65535/52727086312_1cfcb7738d.jpg" width="187.5" height="250" alt="patches"/>
+        <img src="https://live.staticflickr.com/65535/52727086312_1cfcb7738d.jpg" width="150" height="200" alt="patches"/>
             <TextDiv>
                 <PatchesText><strong>Patches (through Polly): </strong>*SQUAWK!* COLD MORNING! </PatchesText>
                 <StoryText>Patches is a mage who can summon lightning. He lost the ability to speak after a run-in with some disgruntled fishermen. He now speaks through his parrot.

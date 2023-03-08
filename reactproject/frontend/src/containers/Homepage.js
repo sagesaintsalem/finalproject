@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import Request from "../helpers/request";
-import NPC from "../components/npcs/NPC";
+
 
 const HomeTitle = styled.h1`
     text-align: center;
